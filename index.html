@@ -587,6 +587,159 @@ h4.sub-sm{font-size:13px;font-weight:590;color:var(--text-secondary);margin:var(
 .crumbs .sep{color:var(--text-disabled);user-select:none}
 .crumbs .current{color:var(--text-primary);font-weight:510;padding:2px 4px}
 
+/* --- Motion demos --- */
+.ease-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4)}
+.ease-card{background:var(--bg-surface);box-shadow:var(--shadow-ring);border-radius:var(--r-lg);padding:var(--space-4);transition:box-shadow var(--t-base) var(--ease-out)}
+.ease-card:hover{box-shadow:var(--shadow-card)}
+.ease-card .k{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-hover);margin-bottom:10px}
+.ease-card .lane{height:34px;position:relative;overflow:hidden}
+.ease-dot{
+  width:34px;height:34px;border-radius:50%;background:var(--accent);
+  display:grid;place-items:center;transform:translateX(0);
+  transition:transform 700ms linear;
+}
+.ease-dot svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ease-card:hover .ease-dot{transform:translateX(190px)}
+.ease-out .ease-dot{transition-timing-function:var(--ease-out)}
+.ease-elastic .ease-dot{transition-timing-function:var(--ease-elastic)}
+.ease-hint{font-size:12px;color:var(--text-quaternary);margin-top:10px}
+
+.dur-row{display:flex;align-items:center;gap:var(--space-4);font-size:12.5px}
+.dur-row .lbl{width:230px;flex:none;color:var(--text-tertiary)}
+.dur-row .lbl b{font-family:var(--font-mono);font-weight:510;color:var(--text-secondary)}
+.dur-track{flex:1;height:6px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
+.dur-fill{height:100%;width:0;border-radius:99px;background:var(--accent);transition:width var(--t-fast) var(--ease-out)}
+.dur-row[data-dur="base"] .dur-fill{transition-duration:var(--t-base)}
+.dur-row[data-dur="slow"] .dur-fill{transition-duration:var(--t-slow)}
+.dur-row.play .dur-fill{width:100%}
+
+/* --- Tooltip --- */
+.tip{position:relative;display:inline-flex}
+.tip::after{
+  content:attr(data-tip);position:absolute;bottom:calc(100% + 9px);left:50%;z-index:40;
+  transform:translate(-50%,4px);
+  background:var(--bg-elevated);color:var(--text-primary);
+  font-size:12px;font-weight:510;padding:5px 10px;border-radius:var(--r-md);
+  box-shadow:var(--shadow-float);white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity var(--t-fast) var(--ease-out),transform var(--t-fast) var(--ease-out);
+}
+.tip::before{
+  content:"";position:absolute;bottom:calc(100% + 4px);left:50%;z-index:40;
+  transform:translate(-50%,4px);
+  border:5px solid transparent;border-top-color:var(--bg-elevated);
+  opacity:0;pointer-events:none;transition:opacity var(--t-fast) var(--ease-out),transform var(--t-fast) var(--ease-out);
+}
+.tip:hover::after,.tip:focus-within::after{opacity:1;transform:translate(-50%,0)}
+.tip:hover::before,.tip:focus-within::before{opacity:1;transform:translate(-50%,0)}
+
+/* --- Progress --- */
+.progress-list{display:flex;flex-direction:column;gap:var(--space-5)}
+.progress-row{display:flex;align-items:center;gap:var(--space-4);font-size:12.5px;color:var(--text-tertiary)}
+.progress-row .lbl{width:110px;flex:none;font-family:var(--font-mono);font-size:11px;color:var(--text-quaternary)}
+.progress-track{flex:1;height:6px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
+.progress-fill{height:100%;border-radius:99px;background:var(--accent)}
+.progress-fill.is-success{background:var(--success)}
+.progress-fill.is-warning{background:var(--warning)}
+.progress-fill.is-error{background:var(--error)}
+.progress-fill.indeterminate{width:36%;animation:prog-slide 1.3s var(--ease-out) infinite}
+@keyframes prog-slide{from{transform:translateX(-120%)}to{transform:translateX(320%)}}
+.progress-vis{display:flex;align-items:center;gap:var(--space-10)}
+.progress-ring{transform:rotate(-90deg)}
+.progress-ring .ring-bg{stroke:rgba(255,255,255,.08)}
+.progress-ring .ring-fg{stroke:var(--accent);stroke-linecap:round}
+.spinner{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.12);border-top-color:var(--accent-bright);animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* --- Pagination & Avatar --- */
+.pager{display:flex;gap:4px;align-items:center}
+.pager button{
+  min-width:30px;height:30px;padding:0 6px;border-radius:var(--r-sm);
+  background:transparent;border:none;cursor:pointer;color:var(--text-tertiary);
+  font-size:12.5px;font-family:var(--font-mono);display:grid;place-items:center;
+  transition:color var(--t-fast) var(--ease-out),background var(--t-fast) var(--ease-out);
+}
+.pager button:hover{color:var(--text-primary);background:rgba(255,255,255,.05)}
+.pager button.active{color:#fff;background:var(--accent);font-weight:590}
+.pager .gap{color:var(--text-disabled);padding:0 2px;font-family:var(--font-mono);font-size:12px}
+.pager button svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.avatar-stack{display:flex;align-items:center}
+.avatar{
+  width:32px;height:32px;border-radius:50%;display:grid;place-items:center;flex:none;
+  font-size:11.5px;font-weight:590;color:#fff;background:var(--accent);
+  box-shadow:0 0 0 2px var(--bg-base);letter-spacing:.01em;
+}
+.avatar-stack .avatar + .avatar{margin-left:-8px}
+.avatar.more{background:var(--bg-elevated);color:var(--text-tertiary);box-shadow:var(--shadow-ring)}
+
+/* --- Alert --- */
+.alert-list{display:flex;flex-direction:column;gap:var(--space-3)}
+.alert{
+  display:flex;gap:var(--space-3);padding:var(--space-4) var(--space-5);
+  border-radius:var(--r-lg);background:var(--bg-surface);font-size:13px;line-height:1.55;
+  box-shadow:var(--shadow-ring);
+}
+.alert svg{width:16px;height:16px;flex:none;margin-top:2px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.alert b{display:block;font-weight:590;margin-bottom:2px;color:var(--text-secondary)}
+.alert p{color:var(--text-tertiary)}
+.alert-info{box-shadow:inset 3px 0 0 var(--info),var(--shadow-ring)}
+.alert-info svg,.alert-info b{stroke:var(--info);color:var(--info)}
+.alert-success{box-shadow:inset 3px 0 0 var(--success),var(--shadow-ring)}
+.alert-success svg,.alert-success b{stroke:var(--success);color:var(--success)}
+.alert-warning{box-shadow:inset 3px 0 0 var(--warning),var(--shadow-ring)}
+.alert-warning svg,.alert-warning b{stroke:var(--warning);color:var(--warning)}
+.alert-error{box-shadow:inset 3px 0 0 var(--error),var(--shadow-ring)}
+.alert-error svg,.alert-error b{stroke:var(--error);color:var(--error)}
+
+/* --- Search --- */
+.search-btn{
+  display:flex;align-items:center;gap:8px;height:30px;padding:0 10px;
+  border-radius:var(--r-md);background:rgba(255,255,255,.04);box-shadow:var(--shadow-ring);
+  color:var(--text-quaternary);font-size:12.5px;cursor:pointer;border:none;
+  transition:color var(--t-fast) var(--ease-out),background var(--t-fast) var(--ease-out);
+}
+.search-btn:hover{color:var(--text-secondary);background:rgba(255,255,255,.06)}
+.search-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.search-btn kbd,.search-esc kbd{
+  font-family:var(--font-mono);font-size:10px;padding:1px 5px;border-radius:4px;
+  background:rgba(255,255,255,.06);box-shadow:var(--shadow-ring);color:var(--text-quaternary);
+}
+.search-overlay{
+  position:fixed;inset:0;z-index:70;background:var(--bg-overlay);
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  display:flex;justify-content:center;align-items:flex-start;
+  padding:12vh var(--space-4) var(--space-4);
+  opacity:0;pointer-events:none;transition:opacity var(--t-base) var(--ease-out);
+}
+.search-overlay.show{opacity:1;pointer-events:auto}
+.search-panel{
+  width:min(560px,100%);background:var(--bg-elevated);border-radius:var(--r-xl);
+  box-shadow:var(--shadow-dialog);overflow:hidden;
+  transform:translateY(-8px) scale(.98);transition:transform var(--t-base) var(--ease-out);
+}
+.search-overlay.show .search-panel{transform:none}
+.search-input-row{display:flex;align-items:center;gap:10px;padding:var(--space-4) var(--space-5);border-bottom:1px solid var(--border-subtle)}
+.search-input-row>svg{width:15px;height:15px;stroke:var(--text-quaternary);fill:none;stroke-width:2;stroke-linecap:round;flex:none}
+#searchInput{flex:1;background:transparent;border:none;outline:none;color:var(--text-primary);font-size:15px}
+#searchInput::placeholder{color:var(--text-disabled)}
+.search-results{max-height:46vh;overflow-y:auto;padding:var(--space-2)}
+.search-item{
+  display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--r-md);
+  cursor:pointer;font-size:13.5px;color:var(--text-secondary);
+}
+.search-item .path{font-family:var(--font-mono);font-size:10px;color:var(--text-quaternary);margin-left:auto;letter-spacing:.04em}
+.search-item.sel,.search-item:hover{background:var(--accent-subtle);color:var(--text-primary)}
+.search-item mark{background:transparent;color:var(--accent-hover);font-weight:590}
+.search-empty{padding:var(--space-8);text-align:center;color:var(--text-quaternary);font-size:13px}
+.search-foot{
+  display:flex;gap:var(--space-4);padding:var(--space-3) var(--space-5);
+  border-top:1px solid var(--border-subtle);font-size:11px;color:var(--text-quaternary);
+}
+@media (max-width:520px){
+  .search-btn span,.search-btn kbd{display:none}
+  .search-btn{width:30px;padding:0;justify-content:center}
+}
+
 /* --- Demo helpers --- */
 .row-actions{display:flex;flex-wrap:wrap;gap:var(--space-2);align-items:center}
 .comp-note{font-size:12.5px;color:var(--text-quaternary);line-height:1.6;padding:var(--space-4) var(--space-5);border-top:1px solid var(--border-subtle)}
@@ -753,10 +906,16 @@ pre code{white-space:pre}
         <a href="#c-toast" data-target="c-toast">Toast 轻提示</a>
         <a href="#c-modal" data-target="c-modal">Modal 对话框</a>
         <a href="#c-popover" data-target="c-popover">Popover 气泡</a>
+        <a href="#c-tooltip" data-target="c-tooltip">Tooltip 工具提示</a>
         <a href="#c-tabs" data-target="c-tabs">Tabs 标签页</a>
         <a href="#c-breadcrumb" data-target="c-breadcrumb">Breadcrumb 面包屑</a>
+        <a href="#c-progress" data-target="c-progress">Progress 进度</a>
+        <a href="#c-pagination" data-target="c-pagination">Pagination 分页</a>
+        <a href="#c-avatar" data-target="c-avatar">Avatar 头像</a>
+        <a href="#c-alert" data-target="c-alert">Alert 警告提示</a>
       </div>
       <a class="nav-item" href="#icons" data-target="icons"><span class="num">06</span>Icons 图标集</a>
+      <a class="nav-item" href="#motion" data-target="motion"><span class="num">07</span>Motion 动效系统</a>
     </nav>
 
     <div class="sidebar-foot">
@@ -772,6 +931,11 @@ pre code{white-space:pre}
     <div class="topbar">
       <div class="crumb"><b>Aperture</b> / <span id="crumbCurrent">Overview</span></div>
       <div class="topbar-actions">
+        <button class="search-btn" id="searchBtn" aria-label="搜索文档" aria-haspopup="dialog">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <span>搜索</span>
+          <kbd>/</kbd>
+        </button>
         <span class="badge badge-mono">v2.4.0</span>
         <button class="menu-btn" id="menuBtn" aria-label="菜单">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -1534,6 +1698,167 @@ pre code{white-space:pre}
             <b>规则：</b>分隔符用 <b>/</b> 字符而非图标，颜色落到 disabled 级；末级为当前页，加 <b>aria-current="page"</b> 并提升字重。
           </div>
         </div>
+
+        <!-- Tooltip -->
+        <h3 class="sub reveal" id="c-tooltip">Tooltip 工具提示</h3>
+        <div class="comp-block reveal">
+          <div class="comp-head">
+            <div class="comp-title">Hover hint <b>pure css · hover / focus</b></div>
+          </div>
+          <div class="comp-stage row-actions">
+            <span class="tip" data-tip="悬停或 Tab 聚焦都可以触发">
+              <button class="btn btn-secondary">悬停我</button>
+            </span>
+            <span class="tip" data-tip="删除后不可恢复">
+              <button class="btn btn-secondary" style="color:var(--error)">危险操作</button>
+            </span>
+          </div>
+          <div class="comp-note">
+            <b>规则：</b>纯 CSS 实现（<b>::after</b> 气泡 + <b>::before</b> 箭头），悬停与键盘聚焦（<b>focus-within</b>）都触发；只放一句短文案，承载复杂内容用 Popover。
+          </div>
+        </div>
+        <div class="comp-block reveal" style="margin-bottom:0">
+          <div class="comp-head">
+            <div class="comp-title">Tooltip <b>HTML</b></div>
+          </div>
+          <div class="code-wrap">
+            <div class="code-tabs">
+              <span class="code-tab active">index.html</span>
+              <button class="copy-btn" data-copy="tooltipcode"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copy</button>
+            </div>
+            <pre id="tooltipcode"><code><span class="tk-tag">&lt;span</span> <span class="tk-attr">class</span>=<span class="tk-str">"tip"</span> <span class="tk-attr">data-tip</span>=<span class="tk-str">"删除后不可恢复"</span><span class="tk-tag">&gt;</span>
+  <span class="tk-tag">&lt;button</span> <span class="tk-attr">class</span>=<span class="tk-str">"btn btn-secondary"</span><span class="tk-tag">&gt;</span>危险操作<span class="tk-tag">&lt;/button&gt;</span>
+<span class="tk-tag">&lt;/span&gt;</span>
+
+<span class="tk-com">&lt;!-- 气泡样式挂在 .tip::after，箭头挂在 .tip::before --&gt;</span>
+<span class="tk-com">&lt;!-- hover 与 :focus-within 两种状态都会显示 --&gt;</span></code></pre>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <h3 class="sub reveal" id="c-progress">Progress 进度</h3>
+        <div class="comp-block reveal">
+          <div class="comp-head">
+            <div class="comp-title">Linear &amp; circular <b>4 tones · indeterminate</b></div>
+          </div>
+          <div class="comp-stage stack">
+            <div class="progress-list">
+              <div class="progress-row"><span class="lbl">default</span><div class="progress-track"><div class="progress-fill" style="width:68%"></div></div></div>
+              <div class="progress-row"><span class="lbl">success</span><div class="progress-track"><div class="progress-fill is-success" style="width:100%"></div></div></div>
+              <div class="progress-row"><span class="lbl">warning</span><div class="progress-track"><div class="progress-fill is-warning" style="width:42%"></div></div></div>
+              <div class="progress-row"><span class="lbl">error</span><div class="progress-track"><div class="progress-fill is-error" style="width:23%"></div></div></div>
+              <div class="progress-row"><span class="lbl">pending</span><div class="progress-track"><div class="progress-fill indeterminate"></div></div></div>
+            </div>
+            <div class="progress-vis">
+              <svg class="progress-ring" width="72" height="72" viewBox="0 0 72 72">
+                <circle class="ring-bg" cx="36" cy="36" r="30" fill="none" stroke-width="6"/>
+                <circle class="ring-fg" cx="36" cy="36" r="30" fill="none" stroke-width="6"
+                        stroke-dasharray="188.5" stroke-dashoffset="60.3"/>
+              </svg>
+              <div class="spinner"></div>
+              <span class="badge badge-mono">ring 68% · spinner</span>
+            </div>
+          </div>
+          <div class="comp-note">
+            <b>规则：</b>线性进度条 6px 高、全圆角，进度未知时用 <b>indeterminate</b> 滑动条而非假数字；环形进度用 SVG <b>stroke-dashoffset</b>，加载动画统一 0.7s 线性循环。
+          </div>
+        </div>
+        <div class="comp-block reveal" style="margin-bottom:0">
+          <div class="comp-head">
+            <div class="comp-title">Progress <b>HTML</b></div>
+          </div>
+          <div class="code-wrap">
+            <div class="code-tabs">
+              <span class="code-tab active">index.html</span>
+              <button class="copy-btn" data-copy="progresscode"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copy</button>
+            </div>
+            <pre id="progresscode"><code><span class="tk-com">&lt;!-- 线性进度：宽度即进度，语义色修饰 --&gt;</span>
+<span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"progress-track"</span><span class="tk-tag">&gt;</span>
+  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"progress-fill is-success"</span> <span class="tk-attr">style</span>=<span class="tk-str">"width:100%"</span><span class="tk-tag">&gt;&lt;/div&gt;</span>
+<span class="tk-tag">&lt;/div&gt;</span>
+
+<span class="tk-com">&lt;!-- 进度未知：加 .indeterminate，不显示假数字 --&gt;</span>
+<span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"progress-fill indeterminate"</span><span class="tk-tag">&gt;&lt;/div&gt;</span>
+
+<span class="tk-com">&lt;!-- 环形进度：r=30，周长 2πr≈188.5，offset = 周长 × (1 - 进度) --&gt;</span>
+<span class="tk-tag">&lt;circle</span> <span class="tk-attr">class</span>=<span class="tk-str">"ring-fg"</span> <span class="tk-attr">stroke-dasharray</span>=<span class="tk-str">"188.5"</span>
+        <span class="tk-attr">stroke-dashoffset</span>=<span class="tk-str">"60.3"</span> <span class="tk-tag">/&gt;</span></code></pre>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <h3 class="sub reveal" id="c-pagination">Pagination 分页</h3>
+        <div class="comp-block reveal" style="margin-bottom:0">
+          <div class="comp-head">
+            <div class="comp-title">Pager <b>current filled · mono digits</b></div>
+          </div>
+          <div class="comp-stage stack">
+            <div class="pager">
+              <button aria-label="上一页"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+              <button>1</button>
+              <button class="active" aria-current="page">2</button>
+              <button>3</button>
+              <span class="gap">…</span>
+              <button>12</button>
+              <button aria-label="下一页"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+            </div>
+          </div>
+          <div class="comp-note">
+            <b>规则：</b>页码用等宽字体避免跳动；当前页用<b>强调色实心填充</b>（唯一使用大面积强调色的导航元素）；省略号固定 disabled 色。
+          </div>
+        </div>
+
+        <!-- Avatar -->
+        <h3 class="sub reveal" id="c-avatar">Avatar 头像</h3>
+        <div class="comp-block reveal" style="margin-bottom:0">
+          <div class="comp-head">
+            <div class="comp-title">Stack <b>initials · overlap · overflow</b></div>
+          </div>
+          <div class="comp-stage stack">
+            <div class="avatar-stack">
+              <span class="avatar" style="background:var(--accent)">ZK</span>
+              <span class="avatar" style="background:var(--success-dim)">LM</span>
+              <span class="avatar" style="background:#b45309">WY</span>
+              <span class="avatar" style="background:#0369a1">CJ</span>
+              <span class="avatar more">+9</span>
+            </div>
+            <span class="badge badge-mono">32px · -8px overlap · 2px ring</span>
+          </div>
+          <div class="comp-note">
+            <b>规则：</b>无图时用<b>姓名首字母 + 语义色底</b>；堆叠向左重叠 8px，用 2px 底色描边分隔；超出数量进 <b>+N</b> 溢出位。
+          </div>
+        </div>
+
+        <!-- Alert -->
+        <h3 class="sub reveal" id="c-alert">Alert 警告提示</h3>
+        <div class="comp-block reveal" style="margin-bottom:0">
+          <div class="comp-head">
+            <div class="comp-title">Banner <b>4 tones · inline · dismissible</b></div>
+          </div>
+          <div class="comp-stage">
+            <div class="alert-list">
+              <div class="alert alert-info">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+                <div><b>新版本可用</b><p>Aperture v2.5 已发布，令牌层向后兼容，可放心升级。</p></div>
+              </div>
+              <div class="alert alert-success">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg>
+                <div><b>部署完成</b><p>aperture-web #4821 已发布到 Production，耗时 41s。</p></div>
+              </div>
+              <div class="alert alert-warning">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M10.3 3.9 2.4 17.5A2 2 0 0 0 4.1 20.5h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+                <div><b>配额即将用尽</b><p>本月带宽已使用 82%，建议升级套餐或开启边缘缓存。</p></div>
+              </div>
+              <div class="alert alert-error">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15 9-6 6M9 9l6 6"/></svg>
+                <div><b>构建失败</b><p>TypeScript 报错 2 处，详见构建日志 #4822。</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="comp-note">
+            <b>规则：</b>左侧 3px <b>语义色内嵌条</b> + 图标/标题同色，正文落到 tertiary；与 Toast 的分工——<b>Alert 内联驻留</b>说明状态，Toast 一闪而过反馈操作。
+          </div>
+        </div>
       </section>
 
       <!-- ────────── 06 ICONS ────────── -->
@@ -1572,6 +1897,96 @@ pre code{white-space:pre}
         </div>
       </section>
 
+      <!-- ────────── 07 MOTION ────────── -->
+      <section class="section" id="motion">
+        <div class="sec-head reveal">
+          <div class="sec-num">07 — Foundations</div>
+          <h2 class="sec-title">Motion 动效系统</h2>
+          <p class="sec-desc">
+            动效不是装饰，而是空间与因果的说明：元素从哪里来、到哪里去、谁触发了它。Aperture 把动效收敛为
+            3 档时长 + 2 条曲线，并始终尊重系统的减弱动态偏好。
+          </p>
+        </div>
+
+        <div class="comp-block reveal">
+          <div class="comp-head">
+            <div class="comp-title">Durations <b>3 steps · click to replay</b></div>
+            <button class="btn btn-secondary" id="durPlay">重播</button>
+          </div>
+          <div class="comp-stage stack" id="durRows">
+            <div class="dur-row" data-dur="fast">
+              <span class="lbl"><b>--t-fast</b> · 120ms — hover、焦点环、按下</span>
+              <div class="dur-track"><div class="dur-fill"></div></div>
+            </div>
+            <div class="dur-row" data-dur="base">
+              <span class="lbl"><b>--t-base</b> · 200ms — 弹层、气泡、状态切换</span>
+              <div class="dur-track"><div class="dur-fill"></div></div>
+            </div>
+            <div class="dur-row" data-dur="slow">
+              <span class="lbl"><b>--t-slow</b> · 320ms — 对话框、大位移入场</span>
+              <div class="dur-track"><div class="dur-fill"></div></div>
+            </div>
+          </div>
+          <div class="comp-note">
+            <b>规则：</b>时长与位移成正比——小于 16px 的状态变化用 fast，常规弹层用 base，覆盖全屏或超过 100px 位移才用 slow。全部令牌在 <b>prefers-reduced-motion</b> 下自动降级为瞬时。
+          </div>
+        </div>
+
+        <div class="comp-block reveal">
+          <div class="comp-head">
+            <div class="comp-title">Easings <b>hover to compare</b></div>
+          </div>
+          <div class="comp-stage stack">
+            <div class="ease-cards">
+              <div class="ease-card">
+                <div class="k">linear — 仅循环动画</div>
+                <div class="lane"><div class="ease-dot"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></div></div>
+                <div class="ease-hint">速度恒定，机械感强。只用于 spinner、进度滑动等循环。</div>
+              </div>
+              <div class="ease-card ease-out">
+                <div class="k">--ease-out — 默认</div>
+                <div class="lane"><div class="ease-dot"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></div></div>
+                <div class="ease-hint">快出缓停，cubic-bezier(.16,1,.3,1)。一切 UI 过渡的默认选择。</div>
+              </div>
+              <div class="ease-card ease-elastic">
+                <div class="k">--ease-elastic — 反馈</div>
+                <div class="lane"><div class="ease-dot"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></div></div>
+                <div class="ease-hint">轻微过冲，cubic-bezier(.34,1.56,.64,1)。仅用于开关、点赞等确认性反馈。</div>
+              </div>
+            </div>
+          </div>
+          <div class="comp-note">
+            <b>规则：</b>元素<b>出场用 ease-out</b>（世界在等你），弹性曲线只做小幅度反馈，禁止在 200ms 以上的过渡中使用（过冲会放大成弹跳）。
+          </div>
+        </div>
+
+        <div class="comp-block reveal" style="margin-bottom:0">
+          <div class="comp-head">
+            <div class="comp-title">Motion <b>tokens · css</b></div>
+          </div>
+          <div class="code-wrap">
+            <div class="code-tabs">
+              <span class="code-tab active">tokens.css</span>
+              <button class="copy-btn" data-copy="motioncode"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copy</button>
+            </div>
+            <pre id="motioncode"><code><span class="tk-com">/* 动效令牌 —— 全站只有这两条曲线、三档时长 */</span>
+<span class="tk-prop">--ease-out</span><span class="tk-punc">:</span> <span class="tk-fn">cubic-bezier</span>(<span class="tk-num">.16, 1, .3, 1</span>)<span class="tk-punc">;</span>
+<span class="tk-prop">--ease-elastic</span><span class="tk-punc">:</span> <span class="tk-fn">cubic-bezier</span>(<span class="tk-num">.34, 1.56, .64, 1</span>)<span class="tk-punc">;</span>
+<span class="tk-prop">--t-fast</span><span class="tk-punc">:</span> <span class="tk-num">120ms</span><span class="tk-punc">;</span> <span class="tk-prop">--t-base</span><span class="tk-punc">:</span> <span class="tk-num">200ms</span><span class="tk-punc">;</span> <span class="tk-prop">--t-slow</span><span class="tk-punc">:</span> <span class="tk-num">320ms</span><span class="tk-punc">;</span>
+
+<span class="tk-com">/* 入场 stagger：同级元素依次延迟 60ms */</span>
+<span class="tk-prop">.reveal</span> <span class="tk-punc">{</span> <span class="tk-prop">opacity</span><span class="tk-punc">:</span> <span class="tk-num">0</span><span class="tk-punc">;</span> <span class="tk-prop">transform</span><span class="tk-punc">:</span> <span class="tk-fn">translateY</span>(<span class="tk-num">14px</span>)<span class="tk-punc">;</span> <span class="tk-punc">}</span>
+<span class="tk-prop">.reveal.in</span> <span class="tk-punc">{</span> <span class="tk-prop">opacity</span><span class="tk-punc">:</span> <span class="tk-num">1</span><span class="tk-punc">;</span> <span class="tk-prop">transform</span><span class="tk-punc">:</span> <span class="tk-prop">none</span><span class="tk-punc">;</span> <span class="tk-punc">}</span>
+<span class="tk-prop">.reveal.d1</span> <span class="tk-punc">{</span> <span class="tk-prop">transition-delay</span><span class="tk-punc">:</span> <span class="tk-num">60ms</span><span class="tk-punc">;</span> <span class="tk-punc">}</span> <span class="tk-com">/* …d4 = 240ms */</span>
+
+<span class="tk-com">/* 尊重系统减弱动态偏好 —— 全站动效一键降级 */</span>
+<span class="tk-tag">@media</span> <span class="tk-punc">(</span><span class="tk-prop">prefers-reduced-motion</span><span class="tk-punc">:</span> <span class="tk-prop">reduce</span><span class="tk-punc">)</span> <span class="tk-punc">{</span>
+  <span class="tk-prop">*</span> <span class="tk-punc">{</span> <span class="tk-prop">transition-duration</span><span class="tk-punc">:</span> <span class="tk-num">.01ms</span> <span class="tk-punc">!</span>important<span class="tk-punc">;</span> <span class="tk-punc">}</span>
+<span class="tk-punc">}</span></code></pre>
+          </div>
+        </div>
+      </section>
+
       <footer class="footer">
         <div class="footer-top">
           <div>
@@ -1588,6 +2003,22 @@ pre code{white-space:pre}
     </div><!-- /wrap -->
   </main><!-- /main -->
 </div><!-- /shell -->
+
+<!-- ══════════════ SEARCH ══════════════ -->
+<div class="search-overlay" id="searchOverlay" role="dialog" aria-modal="true" aria-label="搜索文档">
+  <div class="search-panel">
+    <div class="search-input-row">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="searchInput" type="text" placeholder="搜索章节、组件、令牌…" autocomplete="off" spellcheck="false">
+      <span class="search-esc"><kbd>Esc</kbd></span>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+    <div class="search-foot">
+      <span>↑ ↓ 选择</span><span>↵ Enter 跳转</span><span>Esc 关闭</span>
+      <span style="margin-left:auto">Aperture · 站内索引</span>
+    </div>
+  </div>
+</div>
 
 <!-- ══════════════ MODAL DEMO ══════════════ -->
 <div class="modal-scrim" id="modalScrim"></div>
@@ -1914,12 +2345,163 @@ pre code{white-space:pre}
     });
   });
 
-  /* ---------- Global Escape: close topmost overlay ---------- */
+  /* ---------- In-site search ---------- */
+  var searchOverlay = document.getElementById('searchOverlay');
+  var searchInput = document.getElementById('searchInput');
+  var searchResults = document.getElementById('searchResults');
+  var searchBtn = document.getElementById('searchBtn');
+  var searchHits = [];
+  var searchSel = -1;
+
+  // 索引：侧边栏全部条目 + 令牌/用法别名
+  var searchEntries = navItems.map(function(n){
+    var label = n.textContent.replace(/^\d+/,'').trim();
+    return { label: label, target: n.dataset.target, kw: (label + ' ' + n.dataset.target).toLowerCase() };
+  });
+  [
+    ['--accent 强调色','colors','accent 强调 color 主色'],
+    ['--shadow-card 阴影','overview','shadow 阴影 elevation 卡片'],
+    ['--space-* 间距栅格','spacing','spacing 间距 4px 栅格 margin padding'],
+    ['--font-sans 字体栈','typography','font 字体 inter 字重 typography'],
+    ['--ease-out 缓动曲线','motion','ease 缓动 曲线 motion 动效 animation 贝塞尔'],
+    ['--ease-elastic 弹性曲线','motion','elastic 弹性 过冲 反馈 spring'],
+    ['动效时长 --t-*','motion','时长 duration 时序 fast base slow'],
+    ['入场 stagger / reveal','motion','reveal stagger 入场 延迟 交错'],
+    ['Toast 用法','c-toast','toast 轻提示 通知'],
+    ['Modal 用法','c-modal','modal 对话框 dialog 弹窗 确认'],
+    ['Popover 用法','c-popover','popover 气泡 浮层'],
+    ['Tooltip 用法','c-tooltip','tooltip 工具提示 悬停'],
+    ['Progress 用法','c-progress','progress 进度 环形 spinner 加载 loading'],
+    ['Pagination 用法','c-pagination','pagination 分页 页码 pager'],
+    ['Avatar 用法','c-avatar','avatar 头像 堆叠 首字母'],
+    ['Alert 用法','c-alert','alert 警告 banner 通知 横幅'],
+    ['Tabs 用法','c-tabs','tabs 标签页 分段 segmented'],
+    ['Breadcrumb 用法','c-breadcrumb','breadcrumb 面包屑 层级'],
+    ['图标集','icons','icons 图标 svg icon']
+  ].forEach(function(x){
+    searchEntries.push({ label:x[0], target:x[1], kw:(x[0] + ' ' + x[2]).toLowerCase() });
+  });
+
+  function searchScore(q, kw){
+    var idx = kw.indexOf(q);
+    if(idx === 0) return 100;
+    if(idx > 0) return 60;
+    var i = 0; // 子序列模糊匹配：chuck → colors
+    for(var j = 0; j < kw.length && i < q.length; j++){
+      if(kw[j] === q[i]) i++;
+    }
+    return i === q.length ? 20 : -1;
+  }
+
+  function escHtml(s){
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function highlightMatch(label, q){
+    var idx = label.toLowerCase().indexOf(q);
+    if(idx < 0) return escHtml(label);
+    return escHtml(label.slice(0, idx)) + '<mark>' + escHtml(label.slice(idx, idx + q.length)) + '</mark>' + escHtml(label.slice(idx + q.length));
+  }
+
+  function renderSearch(){
+    if(!searchHits.length){
+      searchResults.innerHTML = '<div class="search-empty">' +
+        (searchInput.value.trim() ? '没有匹配的结果' : '输入关键词，回车跳转') + '</div>';
+      return;
+    }
+    var q = searchInput.value.trim().toLowerCase();
+    searchResults.innerHTML = searchHits.map(function(h, i){
+      return '<div class="search-item' + (i === searchSel ? ' sel' : '') + '" data-target="' + h.target + '">' +
+             '<span>' + highlightMatch(h.label, q) + '</span>' +
+             '<span class="path">#' + h.target + '</span></div>';
+    }).join('');
+    var sel = searchResults.querySelector('.search-item.sel');
+    if(sel) sel.scrollIntoView({block:'nearest'});
+  }
+
+  function runSearch(){
+    var q = searchInput.value.trim().toLowerCase();
+    searchHits = [];
+    searchSel = -1;
+    if(q){
+      searchEntries.forEach(function(en){
+        var s = searchScore(q, en.kw);
+        if(s > 0) searchHits.push({ label:en.label, target:en.target, s:s });
+      });
+      searchHits.sort(function(a,b){ return b.s - a.s; });
+      searchHits = searchHits.slice(0, 8);
+      if(searchHits.length) searchSel = 0;
+    }
+    renderSearch();
+  }
+
+  function openSearch(){
+    searchOverlay.classList.add('show');
+    searchInput.value = '';
+    runSearch();
+    searchInput.focus();
+  }
+  function closeSearch(){
+    searchOverlay.classList.remove('show');
+    searchBtn.focus();
+  }
+
+  searchBtn.addEventListener('click', openSearch);
+  searchOverlay.addEventListener('click', function(e){ if(e.target === searchOverlay) closeSearch(); });
+  searchInput.addEventListener('input', runSearch);
+  searchResults.addEventListener('click', function(e){
+    var it = e.target.closest ? e.target.closest('.search-item') : null;
+    if(it){ scrollTo(it.dataset.target); closeSearch(); }
+  });
+  searchInput.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+      e.preventDefault();
+      if(!searchHits.length) return;
+      searchSel = (searchSel + (e.key === 'ArrowDown' ? 1 : -1) + searchHits.length) % searchHits.length;
+      renderSearch();
+    }
+    if(e.key === 'Enter' && searchSel >= 0){
+      scrollTo(searchHits[searchSel].target);
+      closeSearch();
+    }
+  });
+
+  /* ---------- Motion: duration replay ---------- */
+  var durRows = document.getElementById('durRows');
+  document.getElementById('durPlay').addEventListener('click', function(){
+    var rows = durRows.querySelectorAll('.dur-row');
+    rows.forEach(function(r){ r.classList.remove('play'); });
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      rows.forEach(function(r){ r.classList.add('play'); });
+    });});
+  });
+
+  /* ---------- Pagination demo ---------- */
+  document.querySelectorAll('.pager').forEach(function(pg){
+    pg.addEventListener('click', function(e){
+      var b = e.target.closest ? e.target.closest('button') : null;
+      if(!b || !/^\d+$/.test(b.textContent.trim())) return;
+      pg.querySelectorAll('button').forEach(function(x){ x.classList.remove('active'); x.removeAttribute('aria-current'); });
+      b.classList.add('active');
+      b.setAttribute('aria-current','page');
+    });
+  });
+
+  /* ---------- Global hotkeys & Escape: close topmost layer ---------- */
   document.addEventListener('keydown', function(e){
-    if(e.key !== 'Escape') return;
-    if(modal.classList.contains('show')) closeModal();
-    else if(pop.classList.contains('show')) closePop();
-    else closeSidebar();
+    if(e.key === 'Escape'){
+      if(searchOverlay.classList.contains('show')) closeSearch();
+      else if(modal.classList.contains('show')) closeModal();
+      else if(pop.classList.contains('show')) closePop();
+      else closeSidebar();
+      return;
+    }
+    var typing = /^(input|textarea|select)$/i.test(e.target.tagName);
+    if(typing) return;
+    if(e.key === '/' || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')){
+      e.preventDefault();
+      if(!searchOverlay.classList.contains('show')) openSearch();
+    }
   });
 
 })();
