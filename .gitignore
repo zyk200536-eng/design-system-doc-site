@@ -1,6 +1,2 @@
-# ZCode Sites 本地部署产物（stage 与部署元数据），不进仓库
 .zcode-site/
-
-# 系统杂项
-Thumbs.db
-.DS_Store
+.zcode-site.json
